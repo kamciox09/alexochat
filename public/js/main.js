@@ -39,7 +39,7 @@ socket.on('typing', ({ username }) => {
   span.classList.add('mt-1')
   span.innerHTML = `<b>${username}</b> pisze wiadomość...`;
   document.querySelector('.chat-messages').appendChild(span);
-  // chatMessages.scrollTop = chatMessages.scrollHeight;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 })
 
 // Hide feedback
@@ -47,7 +47,6 @@ socket.on('no-typing', ({ username }) => {
   const feedback = document.querySelectorAll('.feedback')
   feedback.forEach(element => {
     if (element.innerText.includes(username)) {
-      console.log('Mam go!')
       element.remove()
     }
   })
