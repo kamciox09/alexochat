@@ -22,27 +22,35 @@ socket.on('roomUsers', ({ room, users }) => {
   outputUsers(users);
 });
 
+// Show feedback
 inputMSG.addEventListener('focus', ({ username }) => {
   socket.emit('typing', username)
 })
 
+// Hide feedback
 inputMSG.addEventListener('blur', ({ username }) => {
   socket.emit('no-typing', username)
 })
 
+// Show feedback
 socket.on('typing', ({ username }) => {
   const span = document.createElement('span')
   span.classList.add('feedback')
-  span.classList.add(username)
   span.classList.add('mt-1')
   span.innerHTML = `<b>${username}</b> pisze wiadomość...`;
   document.querySelector('.chat-messages').appendChild(span);
   // chatMessages.scrollTop = chatMessages.scrollHeight;
 })
 
+// Hide feedback
 socket.on('no-typing', ({ username }) => {
-  const feedback = document.querySelector('.' + username)
-  feedback.remove()
+  const feedback = document.querySelectorAll('.feedback')
+  feedback.forEach(element => {
+    if (element.innerText.includes(username)) {
+      console.log('Mam go!')
+      element.remove()
+    }
+  })
 })
 
 // Message from server
@@ -65,6 +73,7 @@ chatForm.addEventListener('submit', e => {
     socket.emit('chatMessage', msg);
   }
 
+  // Hide feedback
   socket.emit('no-typing', username)
 
   // Clear input
@@ -98,6 +107,7 @@ function outputUsers(users) {
   `;
 }
 
+// Change MaxHeight property 
 function changeMaxHeight(members) {
   const neededHeight = (members - 1) * 28
   document.querySelector('.chat-sidebar').style.maxHeight = startHeight + neededHeight + 'px'

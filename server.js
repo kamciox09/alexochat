@@ -43,6 +43,7 @@ io.on('connection', socket => {
     });
   });
 
+  // Show feedback
   socket.on('typing', () => {
     const user = getCurrentUser(socket.id);
     socket.broadcast
@@ -52,6 +53,7 @@ io.on('connection', socket => {
         user)
   })
 
+  // Hide feedback
   socket.on('no-typing', () => {
     const user = getCurrentUser(socket.id);
     socket.broadcast
