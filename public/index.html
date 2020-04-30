@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+		integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/main-theme.css">
+	<title>AlexoChat App</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-12">
+				<h3 class=""><i class="far fa-comments mr-1"></i> AlexoChat</h3>
+			</div>
+		</div>
+		<div class="row row-join">
+			<div class="card card-body col-lg-12 mt-5 join-main">
+				<form action="chat.html">
+					<label for="username">Nazwa użytkownika:</label>
+					<input type="text" name="username" id="username" minlength="5" maxlength="18" placeholder="Wprowadź nazwę.."
+						required autocomplete="off" autofocus /> <br>
+					<label class="room" for="room">Pokój:</label>
+					<select name="room" id="room" class="my-select">
+						<option value="Serwerownia">Serwerownia</option>
+						<option value="Bufet">Bufet</option>
+						<option value="Biblioteka">Biblioteka</option>
+						<option value="Sekretariat">Sekretariat</option>
+						<option value="Palarnia">Palarnia</option>
+						<option value="Pracownia">Pracownia</option>
+					</select>
+					<br>
+					<button type="submit" class="btn">Dołącz do czatu!</button>
+				</form>
+			</div>
+		</div>
+		</>
+</body>
+
+</html>
