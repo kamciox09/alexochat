@@ -6,7 +6,6 @@
 	padding: 0;
 }
 
-
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
@@ -21,6 +20,10 @@ body {
 .join-main {
 	margin: 0 auto!important;
 	max-width: 500px!important;
+}
+
+.join-main label.usr {
+	margin-left: 60px;
 }
 
 .join-main label.room {
@@ -83,6 +86,10 @@ option:hover {
 	display: flex;
 }
 
+#room-name, #users {
+	color: #666;
+}
+
 .chat-form-container input[type='text'] {
 	padding: 0px 10px;
 	font-size: 18px;
@@ -103,12 +110,14 @@ option:hover {
 
 .chat-messages {
 	padding: 30px;
+	height: 500px;
 	max-height: 500px;
+	overflow-x: hidden;
 	overflow-y: scroll;
 }
 
 .chat-sidebar {
-	max-height: 260px;
+	max-height: 290px;
 }
 
 .meta {
@@ -167,12 +176,42 @@ ul li {
 
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-track-piece {
-	background-color: #777;
+	background-color: rgb(61, 62, 65);
 }
 
 ::-webkit-scrollbar-thumb {  
-  background-color: rgb(61, 62, 65);
+  background-color: #888;
   width: 6px;
   height: 6px;
   -webkit-border-radius:4px;
+}
+
+/* Media Query */
+
+@media (max-width: 1000px) {
+	.join-main label.usr {
+		margin-left: 55px;
+	}
+}
+
+@media (max-width: 435px) {
+	.join-main label.usr {
+		margin-left: 40px;
+	}
+}
+
+@media (max-width: 420px) {
+	.join-main label.usr {
+		margin-left: 30px;
+	}
+}
+
+@media (max-width: 410px) {
+	.join-main label.usr {
+		margin-left: 0px;
+	}
+
+	.join-main input {
+		margin-left: 35px;
+	}
 }

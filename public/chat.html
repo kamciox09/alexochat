@@ -22,9 +22,11 @@
     <div class="row">
       <div class="card card-body col-lg-3 col-md-4 mt-5 chat-sidebar">
         <a href="index.html" class="btn btn-primary mt-1"><i class="fas fa-sign-out-alt"></i> Opuść pokój</a>
-        <h4 class="mt-3"><i class="fas fa-beer mr-1"></i> Nazwa pokoju:</h4>
+        <hr>
+        <h4><i class="fas fa-beer mr-1"></i> Nazwa pokoju:</h4>
         <h5 id="room-name"></h5>
-        <h4 class="mt-4"><i class="fas fa-users  mr-1"></i> Uczestnicy:</h4>
+        <hr>
+        <h4><i class="fas fa-users  mr-1"></i> Uczestnicy:</h4>
         <ul id="users"></ul>
       </div>
       <div class="col-md-1 col-lg-1"></div>
@@ -34,7 +36,8 @@
     <div class="row">
       <div class="card card-body col-lg-12 mt-5 mb-4 chat-form-container">
         <form id="chat-form">
-          <input id="msg" type="text" placeholder="Wprowadź wiadomość" required autocomplete="off" />
+          <input id="msg" type="text" placeholder="Wprowadź wiadomość" maxlength="100000" required autocomplete="off"
+            autofocus />
           <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Wyślij</button>
         </form>
       </div>

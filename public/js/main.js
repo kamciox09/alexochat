@@ -3,12 +3,23 @@ const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
 const inputMSG = document.getElementById('msg')
-const startHeight = 260
+const startHeight = 290
+const dodgers = ["Gość", "Spryciarz", "Cwaniak", "Oszust", "Kajtek", "Leniwiec", "Małpa", "Kombinator", "Maniak", "Chytrus", "Nieznajomy", "Alberto", "Łysy", "Szpieg", "Cygan", "Faryzeusz", "Zdrajca", "Intrygant", "Prowokator", "Złoczyńca", "Przemądrzalec", "Krętacz", "Manipulator", "Frant", "Gagatek", "Hultaj", "Bajerant", "Ziółko"]
 
 // Get username and room from URL
-const { username, room } = Qs.parse(location.search, {
+let { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
+
+// If the user change nick in url
+if (username.length > 18 || username.length < 5 || username.includes('<') && username.includes('>')) {
+  username = dodgers[Math.floor(Math.random() * dodgers.length)];
+}
+
+// If the user change room in url
+if (room.length == 0 || room.length > 18) {
+  room = "Nora kreta"
+}
 
 const socket = io();
 
@@ -54,6 +65,7 @@ socket.on('no-typing', ({ username }) => {
 
 // Message from server
 socket.on('message', message => {
+
   // console.log(message);
   outputMessage(message);
 
@@ -66,32 +78,53 @@ chatForm.addEventListener('submit', e => {
   e.preventDefault();
 
   // Get message text
-  const msg = e.target.elements.msg.value;
-  if (!msg.includes('>')) {
-    // Emit message to server
-    socket.emit('chatMessage', msg);
-  }
+  let msg = e.target.elements.msg.value;
+
+  // Emit message to server
+  socket.emit('chatMessage', msg);
 
   // Hide feedback
   socket.emit('no-typing', username)
 
   // Clear input
   e.target.elements.msg.value = '';
-  e.target.elements.msg.focus();
   socket.emit('typing', username)
+  inputMSG.disabled = true
+  setTimeout(() => {
+    inputMSG.disabled = false
+    e.target.elements.msg.focus();
+  }, 700)
 });
 
 // Output message to DOM
 function outputMessage(message) {
   const div = document.createElement('div');
+  const span = document.createElement('span');
+  const p1 = document.createElement('p');
+  const p2 = document.createElement('p');
   const hr = document.createElement('hr');
   div.classList.add('message');
-  div.innerHTML = `<p class="meta">${message.username} - <span class="time">${message.time}</span></p>
-  <p class="text">
-    ${message.text}
-  </p>`;
-  document.querySelector('.chat-messages').appendChild(div);
-  document.querySelector('.chat-messages').appendChild(hr);
+  p1.classList.add('meta')
+  p1.innerText = message.username + " - "
+  span.classList.add('time')
+  span.innerText = message.time
+  p1.appendChild(span)
+  p2.classList.add('text')
+  p2.innerText = message.text
+  div.appendChild(p1)
+  div.appendChild(p2)
+  // div.innerHTML = `<p class="meta">${message.username} - <span class="time">${message.time}</span></p>
+  // <p class="text">
+  //   ${message.text}
+  // </p>`;
+  var feedback = document.querySelector('.feedback')
+  if (feedback) {
+    document.querySelector('.chat-messages').insertBefore(div, feedback)
+    document.querySelector('.chat-messages').insertBefore(hr, feedback)
+  } else {
+    document.querySelector('.chat-messages').appendChild(div);
+    document.querySelector('.chat-messages').appendChild(hr);
+  }
 }
 
 // Add room name to DOM
